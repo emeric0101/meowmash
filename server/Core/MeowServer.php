@@ -22,12 +22,11 @@ class MeowServer {
         // Getting args
         $controllerName = strval(!empty($_GET['controller']) ? $_GET['controller'] : '');
         $method = strval(!empty($_GET['method']) ? $_GET['method'] : '');
-        $id = strval(!empty($_GET['id']) ? $_GET['id'] : '');
 
         // Calling Vote controller
         $controller = $this->container->get('Emeric0101\\Meowmash\\Controller\\' . $controllerName);
         if ($controller != null && method_exists($controller, $method)) {
-            $json = $controller->$method($id);
+            $json = $controller->$method();
         }
         else {
             $json = ['error' => 'Bad request'];

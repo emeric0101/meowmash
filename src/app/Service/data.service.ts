@@ -35,8 +35,9 @@ export class DataService {
         return r.json().votes as Vote[];
     }
     /** Vote for a cat */
-    public async VoteFor(id : string) {
-        let r = await this.http.get(this.url + "Vote/voteFor/" + id + ".json").toPromise();
+    public async VoteFor(idMore : string, idLess : string) {
+        let data = {more: idMore, less: idLess};
+        let r = await this.http.post(this.url + "Vote/voteFor.json", data).toPromise();
         if (r.status != 200) {
             throw "HTTP ERROR";
         }

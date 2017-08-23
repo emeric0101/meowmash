@@ -20,7 +20,6 @@ RewriteRule (.*) - [F]
 RewriteCond %{ENV:REDIRECT_STATUS} 200
 RewriteRule ^ - [L]
 
-RewriteRule ^(.*)/(.*)/(.*).json   			api.php?controller=$1&method=$2&id=$3 [L,NC,QSA]
 RewriteRule ^(.*)/(.*).json   				api.php?controller=$1&method=$2 [L,NC,QSA]
 
 RewriteRule .* api.php [NC,QSA]
