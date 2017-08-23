@@ -16,16 +16,21 @@ class MeowServer {
     }
 
     public function Run() {
+        header('Content-Type: application/json');
+        // Getting args
         $method = strval(!empty($_GET['method']) ? $_GET['method'] : '');
         $id = strval(!empty($_GET['id']) ? $_GET['id'] : '');
 
+        // Calling Vote controller
         $controller = $this->container->get('Emeric0101\Meowmash\Controller\Vote');
         if (method_exists($controller, $method)) {
-            $controller->$method($id);
+            $json = $controller->$method($id);
         }
         else {
-            echo json_encode(['error' => 'Bad request']);
+            $json = ['error' => 'Bad request'];
         }
+        // Avoid json issue with utf8
+        echo json_encode(\ForceUTF8\Encoding::toUTF8($json));
         $this->db->close();
     }
 }
