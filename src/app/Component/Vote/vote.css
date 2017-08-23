@@ -1,0 +1,15 @@
+#voteWrapper {
+    width: 1024px;
+    margin: auto;
+    text-align: center;
+}
+img {
+    border-radius: 50%;
+    transition: all .1s;
+    cursor: pointer;
+}
+
+img:hover {
+    width: 240px;
+    height: 240px;
+}

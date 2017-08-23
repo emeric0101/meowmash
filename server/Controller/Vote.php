@@ -36,12 +36,13 @@ class Vote
     * @param string $id id of the cat
     */
     public function voteFor(){
+        if (empty($_POST['more']) || empty($_POST['less'])) {
+            return ['error' => 'more and less required'];
+        }
         $more = strval($_POST['more']);
         $less = strval($_POST['less']);
-        $voteMore = $this->entityManager->getRepository("Emeric0101\Meowmash\Entity\Vote")->findByCatId($more);
-        $voteLess = $this->entityManager->getRepository("Emeric0101\Meowmash\Entity\Vote")->findByCatId($less);
-        $this->changeVote($voteMore, 1);
-        $this->changeVote($voteLess, -1);
+        $this->changeVote($more, 1);
+        $this->changeVote($less, -1);
         $this->entityManager->flush();
         return ['result' => true];
     }
