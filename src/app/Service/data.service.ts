@@ -5,7 +5,7 @@ import { Cat } from '../Entity/cat.entity';
 
 import { Router } from '@angular/router';
 
-import { Headers, Http } from '@angular/http';
+import { Headers, Http, RequestOptions,RequestMethod } from '@angular/http';
 import 'rxjs/add/operator/toPromise';
 
 @Injectable()
@@ -36,12 +36,22 @@ export class DataService {
     }
     /** Vote for a cat */
     public async VoteFor(idMore : string, idLess : string) {
-        let data = {more: idMore, less: idLess};
-        let r = await this.http.post(this.url + "Vote/voteFor.json", data).toPromise();
+
+        let urlSearchParams = new URLSearchParams();
+        urlSearchParams.append('more', idMore);
+        urlSearchParams.append('less', idLess);
+        let body = urlSearchParams.toString();
+
+        let opts: RequestOptions = new RequestOptions();
+        opts.method = RequestMethod.Post;
+        opts.headers = new Headers({ 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8' });
+
+
+        let r = await this.http.post(this.url + "Vote/voteFor.json", body, opts).toPromise();
         if (r.status != 200) {
             throw "HTTP ERROR";
         }
-        if (r.json().data.result != true) {
+        if (r.json().result != true) {
             throw "BAD RESPONSE";
         }
     }
