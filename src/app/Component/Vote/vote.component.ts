@@ -9,28 +9,41 @@ import { Cat } from '../../Entity/cat.entity';
   styleUrls: ['./vote.css'],
   providers: [ DataService ]
 })
+
 export class Vote implements OnInit {
-    cat1 : Cat = null;
-    cat2 : Cat = null;
+    cats : CatPair[] = [];
+    currentPair : CatPair = null;
     constructor(private dataService : DataService) {
     }
-    cats : Cat[] = [];
     async ngOnInit() {
-        this.cats = await this.dataService.GetAllCats();
+        let cats = await this.dataService.GetAllCats();
+        // Create pairs
+        for (let cat1 of cats) {
+            for (let cat2 of cats) {
+                if (cat1 == cat2) {continue;}
+                this.cats.push(new CatPair(cat1, cat2));
+            }
+        }
+        // random sorting (two time to inscrease entropy)
+        this.cats = this.cats.sort((a,b) => Math.random()-.5);
+        this.cats = this.cats.sort((a,b) => Math.random()-.5);
+        
         this.getNextCats();
     }
     async voteFor(catMore : Cat, catLess: Cat) {
         // Hide display
-        this.cat1 = null;
+        this.currentPair = null;
         await this.dataService.VoteFor(catMore.id, catLess.id);
         this.getNextCats();
     }
 
     getNextCats() {
-        if (this.cats.length > 2) {
-            this.cat1 = this.cats.pop() as Cat;
-            this.cat2 = this.cats.pop();
-        }
+        if (this.cats.length > 0)
+            this.currentPair = this.cats.pop();
     }
 
+}
+
+class CatPair {
+    public constructor(public c1 : Cat, public c2 : Cat) {}
 }

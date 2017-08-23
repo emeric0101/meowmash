@@ -3,12 +3,12 @@
     <h1>MeowMash</h1>
     <a class="btn btn-primary" routerLink="/result">Résultats</a>
 
-    <div class="row-fluid" *ngIf="cat1 != null">
-        <div class="col-sm-6" (click)="voteFor(cat1, cat2)">
-            <img src="{{cat1.url}}"  width="200" height="200" />
+    <div class="row-fluid" *ngIf="currentPair != null">
+        <div class="col-sm-6" (click)="voteFor(currentPair.c1, currentPair.c2)">
+            <img src="{{currentPair.c1.url}}"  width="200" height="200" />
         </div>
-        <div class="col-sm-6" (click)="voteFor(cat2, cat1)">
-            <img src="{{cat2.url}}"  width="200" height="200" />
+        <div class="col-sm-6" (click)="voteFor(currentPair.c2, currentPair.c1)">
+            <img src="{{currentPair.c2.url}}"  width="200" height="200" />
 
         </div>
     </div>
