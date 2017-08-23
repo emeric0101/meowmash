@@ -1,5 +1,6 @@
 RewriteEngine on
 
+
 # Filtres sécurité
 RewriteCond %{HTTP_USER_AGENT} ^-?$ [OR] ## ANONYMES
 RewriteCond %{HTTP_USER_AGENT} ^[bcdfghjklmnpqrstvwxz\ ]{8,}|^[0-9a-z]{15,}|^[0-9A-Za-z]{19,}|^[A-Za-z]{3,}\ [a-z]{4,}\ [a-z]{4,} [OR] ## CEUX QUI INVENTENT DES NOMS AU HASARD
@@ -15,12 +16,11 @@ RewriteCond %{QUERY_STRING} ^(.*)GLOBALS(=|[|%[0-9A-Z]{0,2})(.*)$ [OR]
 RewriteCond %{QUERY_STRING} ^(.*)_REQUEST(=|[|%[0-9A-Z]{0,2})(.*)$ [OR]
 RewriteCond %{QUERY_STRING} ^(.*)(SELECT(%20|\+)|UNION(%20|\+)ALL|INSERT(%20|\+)|DELETE(%20|\+)|CHAR\(|UPDATE(%20|\+)|REPLACE(%20|\+)|LIMIT(%20|\+))(.*)$ [NC]
 RewriteRule (.*) - [F]
-
 # Compatibility with Apache 2.2 (END)
 RewriteCond %{ENV:REDIRECT_STATUS} 200
 RewriteRule ^ - [L]
 
-RewriteRule ^(.*)/(.*).json   				api.php?method=$1&id=$2 [L,NC,QSA]
-RewriteRule ^(.*).json   				api.php?method=$1 [L,NC,QSA]
+RewriteRule ^(.*)/(.*)/(.*).json   			api.php?controller=$1&method=$2&id=$3 [L,NC,QSA]
+RewriteRule ^(.*)/(.*).json   				api.php?controller=$1&method=$2 [L,NC,QSA]
 
 RewriteRule .* api.php [NC,QSA]

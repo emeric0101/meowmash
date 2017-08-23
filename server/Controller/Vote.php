@@ -14,7 +14,7 @@ class Vote
     */
     public function getAll() {
         $votes = $this->entityManager->getRepository("Emeric0101\Meowmash\Entity\Vote")->findAll();
-        return json_encode($votes);
+        return ['votes' => $votes];
     }
 
     /** voteFor()

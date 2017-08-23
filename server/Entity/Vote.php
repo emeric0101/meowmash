@@ -42,7 +42,7 @@ class Vote implements \JsonSerializable
 
     public function jsonSerialize() {
         return [
-            'catid' => $this->getCatId(),
+            'catId' => $this->getCatId(),
             'score' => $this->getScore()
         ];
     }
