@@ -16,12 +16,15 @@ class MeowServer {
     }
 
     public function Run() {
+        $method = strval(!empty($_GET['method']) ? $_GET['method'] : '');
+        $id = strval(!empty($_GET['id']) ? $_GET['id'] : '');
+
         $controller = $this->container->get('Emeric0101\Meowmash\Controller\Vote');
-        if (!empty($_POST)) {
-            $controller->post();
+        if (method_exists($controller, $method)) {
+            $controller->$method($id);
         }
         else {
-            $controller->index();
+            echo json_encode(['error' => 'Bad request']);
         }
         $this->db->close();
     }
