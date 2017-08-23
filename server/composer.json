@@ -1,0 +1,20 @@
+{
+    "name": "Emeric0101\\Meowmash",
+	"license": "Apache License",
+	"autoload": {
+        "psr-4": {
+            "Emeric0101\\Meowmash\\Entity\\": "Entity/",
+            "Emeric0101\\Meowmash\\Repository\\": "Repository/",
+            "Emeric0101\\Meowmash\\Controller\\": "Controller/",
+            "Emeric0101\\Meowmash\\Service\\": "Service/",
+            "Emeric0101\\Meowmash\\Core\\": "Core/"
+        }
+    },
+    "require": {
+        "php": "^7.0",
+        "doctrine/orm": "^2.5",
+        "neitanod/forceutf8": "^2",
+        "php-di/php-di": "^5.4",
+        "ocramius/proxy-manager": "^2.0"
+	}
+}

@@ -1,0 +1,23 @@
+RewriteEngine on
+
+# Filtres sécurité
+RewriteCond %{HTTP_USER_AGENT} ^-?$ [OR] ## ANONYMES
+RewriteCond %{HTTP_USER_AGENT} ^[bcdfghjklmnpqrstvwxz\ ]{8,}|^[0-9a-z]{15,}|^[0-9A-Za-z]{19,}|^[A-Za-z]{3,}\ [a-z]{4,}\ [a-z]{4,} [OR] ## CEUX QUI INVENTENT DES NOMS AU HASARD
+RewriteCond %{HTTP_USER_AGENT} ^<sc|<\?|^adwords|@nonymouse|Advanced\ Email\ Extractor|almaden|anonymous|Art-Online|autoemailspider|blogsearchbot-martin|CherryPicker|compatible\ \;|Crescent\ Internet\ ToolPack|Digger|DirectUpdate|Download\ Accelerator|^eCatch|echo\ extense|EmailCollector|EmailWolf|Extractor|flashget|frontpage|Go!Zilla|grub\ crawler|HTTPConnect|httplib|HttpProxy|HTTP\ agent|HTTrack|^ia_archive|IDBot|id-search|Indy\ Library|^Internet\ Explorer|^IPiumBot|Jakarta\ Commons|^Kapere|Microsoft\ Data|Microsoft\ URL|^minibot\(NaverRobot\)|^Moozilla|^Mozilla$|^MSIE|MJ12bot|Movable\ Type|NICErsPRO|^NPBot|Nutch|Nutscrape/|^Offline\ Explorer|^Offline\ Navigator|OmniExplorer|^Program\ Shareware|psycheclone|PussyCat|PycURL|python|QuepasaCreep|SiteMapper|Star\ Downloader|sucker|SurveyBot|Teleport\ Pro|Telesoft|TrackBack|Turing|TurnitinBot|^user|^User-Agent:\ |^User\ Agent:\ |vobsub|webbandit|WebCapture|webcollage|WebCopier|WebDAV|WebEmailExtractor|WebReaper|WEBsaver|WebStripper|WebZIP|widows|Wysigot|Zeus|Zeus.*Webster [NC,OR] ## VRAIS ET FAUX ROBOTS NE RESPECTANT PAS LES REGLES
+RewriteCond %{HTTP_USER_AGENT} ^curl|^Fetch\ API\ Request|GT\:\:WWW|^HTTP\:\:Lite|httplib|^Java/1.|^Java\ 1.|^LWP|libWeb|libwww|^PEAR|PECL\:\:HTTP|PHPCrawl|python|Rsync|Snoopy|^URI\:\:Fetch|WebDAV|^Wget [NC]
+RewriteCond %{REQUEST_METHOD} (GET|POST) [NC]
+RewriteCond %{QUERY_STRING} ^(.*)(%3C|<)/?script(.*)$ [NC,OR]
+RewriteCond %{QUERY_STRING} ^(.*)(%3D|=)?javascript(%3A|:)(.*)$ [NC,OR]
+RewriteCond %{QUERY_STRING} ^(.*)document\.location\.href(.*)$ [OR]
+RewriteCond %{QUERY_STRING} ^(.*)(%3D|=)http(%3A|:)(/|%2F){2}(.*)$ [NC,OR] ## ATTENTION A CETTE REGLE. ELLE PEUT CASSER CERTAINES REDIRECTIONS RESSEMBLANT A: http://www.truc.fr/?r=http://www.google.fr ##
+RewriteCond %{QUERY_STRING} ^(.*)base64_encode(.*)$ [OR]
+RewriteCond %{QUERY_STRING} ^(.*)GLOBALS(=|[|%[0-9A-Z]{0,2})(.*)$ [OR]
+RewriteCond %{QUERY_STRING} ^(.*)_REQUEST(=|[|%[0-9A-Z]{0,2})(.*)$ [OR]
+RewriteCond %{QUERY_STRING} ^(.*)(SELECT(%20|\+)|UNION(%20|\+)ALL|INSERT(%20|\+)|DELETE(%20|\+)|CHAR\(|UPDATE(%20|\+)|REPLACE(%20|\+)|LIMIT(%20|\+))(.*)$ [NC]
+RewriteRule (.*) - [F]
+
+# Compatibility with Apache 2.2 (END)
+RewriteCond %{ENV:REDIRECT_STATUS} 200
+RewriteRule ^ - [L]
+
+RewriteRule .* api.php [NC,QSA]
