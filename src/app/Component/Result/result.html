@@ -1,0 +1,15 @@
+<div>
+    <a routerLink="/vote" class="btn btn-default">Précédent</a>
+    <table class="table">
+        <tr>
+            <th>Rang</th>
+            <th>Photo</th>
+        </tr>
+        <tr *ngFor="let cat of catVoted">
+            <td>{{cat.vote.score}}</td>
+            <td>
+                <img src="{{cat.cat.url}}"  width="100" height="100" alt="photo" />
+            </td>
+        </tr>
+    </table>
+</div>

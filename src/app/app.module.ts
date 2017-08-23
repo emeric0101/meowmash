@@ -5,12 +5,13 @@ import { RouterModule }   from '@angular/router';
 
 import { AppComponent } from './app.component';
 import { Vote } from './Component/Vote/vote.component';
+import { Result } from './Component/Result/result.component';
 
 import { HttpModule }    from '@angular/http';
 
 @NgModule({
   declarations: [
-    AppComponent, Vote
+    AppComponent, Vote, Result
   ],
   imports: [
     BrowserModule,
@@ -19,6 +20,10 @@ import { HttpModule }    from '@angular/http';
       {
         path: 'vote',
         component: Vote
+    },
+      {
+        path: 'result',
+        component: Result
     },
      {
         path: '',

@@ -16,14 +16,19 @@ export class DataService {
     ) {
 
     }
-    /** Get all cats (need to use a proxy because CORS)
+    /** Get all cats (need to use a proxy because CORS) with cache
     */
+    cats : Cat[] = null;
     public async GetAllCats() : Promise<Cat[]> {
+        if (this.cats != null) {
+            return this.cats;
+        }
         let r = await this.http.get(this.url + "Cat/getAll.json").toPromise();
         if (r.status != 200) {
             throw "HTTP ERROR";
         }
-        return r.json().images as Cat[];
+        this.cats = r.json().images as Cat[];
+        return this.cats;
     }
     /** Get all votes
     */
