@@ -2,14 +2,35 @@
     width: 1024px;
     margin: auto;
     text-align: center;
+
+
 }
 img {
     border-radius: 50%;
     transition: all .1s;
     cursor: pointer;
+    margin-bottom: 10px;
 }
 
 img:hover {
     width: 240px;
     height: 240px;
+}
+
+.home1, .home2, .home3 {
+    display: none;
+    margin-top: 30vh;
+
+}
+.mainWrapper {
+    display: none;
+    background: url("./pattes.jpg");
+    background-size: contain;
+    height: 400px;
+    margin-top: 20vh;
+
+}
+
+.btn {
+    margin-bottom: 50px;
 }

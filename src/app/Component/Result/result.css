@@ -1,0 +1,19 @@
+img {
+    border-radius: 50%;
+    transition: all .1s;
+    margin-bottom: 10px;
+}
+
+.catWrapper {
+    display: table-cell;
+
+}
+
+.catScroll {
+    height: 160px;
+    overflow-x: scroll;
+}
+
+.resultWrapper {
+    margin: 10px;
+}

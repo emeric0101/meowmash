@@ -1,16 +1,25 @@
 <div id="voteWrapper">
-
-    <h1>MeowMash</h1>
-    <a class="btn btn-primary" routerLink="/result">Résultats</a>
-
-    <div class="row-fluid" *ngIf="currentPair != null">
-        <div class="col-sm-6" (click)="voteFor(currentPair.c1, currentPair.c2)">
-            <img src="{{currentPair.c1.url}}"  width="200" height="200" />
-        </div>
-        <div class="col-sm-6" (click)="voteFor(currentPair.c2, currentPair.c1)">
-            <img src="{{currentPair.c2.url}}"  width="200" height="200" />
-
-        </div>
+    <div class="home1 slow">
+        <h1>Bienvenue sur Mashcat ! </h1>
+        <h2>Le site qui référence les chats les plus MIGNOOOOONS !!</h2>
     </div>
+    <h1 class="home2 slow">Qui sera le plus beau ?</h1>
+    <h1 class="home3 slow">Qui sera le plus mignon ?</h1>
+    <div class="mainWrapper slow">
+        <a class="btn btn-default" routerLink="/result">Qui est domine le monde ?</a>
 
+        <div class="row-fluid" *ngIf="currentPair != null">
+            <div class="col-sm-6" (click)="voteFor(currentPair.c1, currentPair.c2)">
+                <img src="{{currentPair.c1.url}}"  width="200" height="200" (error)="OnError()" />
+                <p>{{currentPair.p1}}</p>
+            </div>
+            <div class="col-sm-6" (click)="voteFor(currentPair.c2, currentPair.c1)">
+                <img src="{{currentPair.c2.url}}"  width="200" height="200" (error)="OnError()" />
+                <p>{{currentPair.p2}}</p>
+
+            </div>
+
+        </div>
+
+    </div>
 </div>

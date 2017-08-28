@@ -14,8 +14,13 @@ import { Vote } from '../../Entity/vote.entity';
 export class Result implements OnInit {
     cats : Cat[] = [];
     catVoted : CatVoted[] = [];
+    firstCat : Cat = null;
+    lastCat : Cat = null;
+    currentFirst = 0;
+    currentLast = -1;
     constructor(private dataService : DataService) {
     }
+
     async ngOnInit() {
         // Getting cats and votes from the server
         let cats = await this.dataService.GetAllCats();
@@ -29,7 +34,19 @@ export class Result implements OnInit {
         this.catVoted = catVoted.sort((a, b) => {
             return b.vote.score - a.vote.score;
         });
+        // Init first and last cat
+        this.OnFirstError();
+        this.OnLastError();
 
+    }
+
+    OnFirstError() {
+        this.firstCat = this.catVoted[this.currentFirst].cat;
+        this.currentFirst++;
+    }
+    OnLastError() {
+        this.lastCat = this.catVoted[this.catVoted.length + this.currentLast].cat;
+        this.currentLast--;
     }
 }
 class CatVoted {
