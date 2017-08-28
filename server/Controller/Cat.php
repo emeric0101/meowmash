@@ -9,6 +9,7 @@ class Cat
     * index()
     * When GET request, returns all Cat from server PROXY
     */
+
     public function getAll() {
         $url = 'https://latelier.co/data/cats.json';
         $ch = curl_init();
@@ -18,7 +19,8 @@ class Cat
         $resultat = curl_exec ($ch);
         curl_close($ch);
         echo $resultat;
-        exit();
+        
+        return false;
     }
 
 }

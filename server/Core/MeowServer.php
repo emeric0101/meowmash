@@ -31,8 +31,11 @@ class MeowServer {
         else {
             $json = ['error' => 'Bad request'];
         }
-        // Avoid json issue with utf8
-        echo json_encode(\ForceUTF8\Encoding::toUTF8($json));
+        if ($json != false) {
+            // Avoid json issue with utf8
+            echo json_encode(\ForceUTF8\Encoding::toUTF8($json));    
+        }
+
         $this->db->close();
     }
 }
